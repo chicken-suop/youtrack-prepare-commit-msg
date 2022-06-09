@@ -1,6 +1,6 @@
 {
   "name": "@chicken-suop/youtrack-prepare-commit-msg",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Husky Git hook to add YOUTRACK ticket ID into the commit message",
   "author": "Elliot Schep",
   "bin": "./bin/index.js",

@@ -20,7 +20,7 @@ Why would you want this? Well, Youtrack has many hidden goodies, and this is one
 Install the package using NPM
 
 ```bash
-npm install husky youtrack-prepare-commit-msg --save-dev && npx husky install
+npm install husky @chicken-suop/youtrack-prepare-commit-msg@1.6.2 --save-dev && npx husky install
 ```
 
 For Husky 5:
@@ -28,7 +28,7 @@ For Husky 5:
 Execute command
 
 ```shell
-npx husky add .husky/prepare-commit-msg 'npx youtrack-prepare-commit-msg $1'
+npx husky add .husky/prepare-commit-msg 'npx @chicken-suop/youtrack-prepare-commit-msg $1'
 ```
 
 For Husky 2-4:
@@ -39,7 +39,7 @@ Inside your package.json add a standard husky npm script for the git hook
 {
   "husky": {
     "hooks": {
-      "prepare-commit-msg": "youtrack-prepare-commit-msg"
+      "prepare-commit-msg": "@chicken-suop/youtrack-prepare-commit-msg"
     }
   }
 }
