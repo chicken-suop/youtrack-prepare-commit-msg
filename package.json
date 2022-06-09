@@ -1,12 +1,12 @@
 {
-  "name": "jira-prepare-commit-msg",
+  "name": "youtrack-prepare-commit-msg",
   "version": "1.6.2",
-  "description": "Husky Git hook to add JIRA ticket ID into the commit message",
+  "description": "Husky Git hook to add YOUTRACK ticket ID into the commit message",
   "author": "Dmitry Shilov",
   "bin": "./bin/index.js",
   "keywords": [
     "husky",
-    "jira",
+    "youtrack",
     "hook",
     "hooks",
     "prepare",
@@ -14,11 +14,11 @@
     "message",
     "msg"
   ],
-  "homepage": "https://github.com/bk201-/jira-prepare-commit-msg",
-  "bugs": "https://github.com/bk201-/jira-prepare-commit-msg/issues",
+  "homepage": "https://github.com/chicken-suop/youtrack-prepare-commit-msg",
+  "bugs": "https://github.com/chicken-suop/youtrack-prepare-commit-msg/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bk201-/jira-prepare-commit-msg"
+    "url": "https://github.com/chicken-suop/youtrack-prepare-commit-msg"
   },
   "license": "MIT",
   "dependencies": {
@@ -61,10 +61,10 @@
     "eslint:fix": "eslint --ext .js --ext .ts src/ --fix",
     "prettier": "prettier --parser typescript --write \"src/**/*.ts\"",
     "tsc": "tsc -p ./",
-    "prepare:husky:2": "cd ./test/husky2 && git init && git checkout -b JIRA-4321-test-husky2 && npm i",
-    "prepare:husky:3": "cd ./test/husky3 && git init && git checkout -b JIRA-4321-test-husky3 && npm i",
-    "prepare:husky:4": "cd ./test/husky4 && git init && git checkout -b JIRA-4321-test-husky4 && npm i",
-    "prepare:husky:5": "cd ./test/husky5 && git init && git checkout -b JIRA-4321-test-husky5 && npm i",
+    "prepare:husky:2": "cd ./test/husky2 && git init && git checkout -b YOUTRACK-4321-test-husky2 && npm i",
+    "prepare:husky:3": "cd ./test/husky3 && git init && git checkout -b YOUTRACK-4321-test-husky3 && npm i",
+    "prepare:husky:4": "cd ./test/husky4 && git init && git checkout -b YOUTRACK-4321-test-husky4 && npm i",
+    "prepare:husky:5": "cd ./test/husky5 && git init && git checkout -b YOUTRACK-4321-test-husky5 && npm i",
     "cleanup:husky:2": "cd ./test/husky2 && rimraf .git && rimraf node_modules && rimraf package-lock.json",
     "cleanup:husky:3": "cd ./test/husky3 && rimraf .git && rimraf node_modules && rimraf package-lock.json",
     "cleanup:husky:4": "cd ./test/husky4 && rimraf .git && rimraf node_modules && rimraf package-lock.json",

@@ -12,11 +12,11 @@ import { error, log } from './log';
     const gitRoot = git.getRoot();
     const branch = await git.getBranchName(gitRoot);
     const config = await loadConfig();
-    const ticket = git.getJiraTicket(branch, config);
+    const ticket = git.getYoutrackTicket(branch, config);
 
-    log(`The JIRA ticket ID is: ${ticket}`);
+    log(`The YOUTRACK ticket ID is: ${ticket}`);
 
-    git.writeJiraTicket(ticket, config);
+    git.writeYoutrackTicket(ticket, config);
   } catch (err: unknown) {
     if (typeof err === 'string') {
       error(err);

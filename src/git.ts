@@ -42,7 +42,7 @@ function getMsgFilePath(gitRoot: string, index = 0): string {
     if (messageFilePath) {
       return messageFilePath;
     } else {
-      throw new Error(`You are using Husky 5. Please add $1 to jira-pre-commit-msg's parameters.`);
+      throw new Error(`You are using Husky 5. Please add $1 to youtrack-pre-commit-msg's parameters.`);
     }
   }
 
@@ -63,8 +63,8 @@ function escapeReplacement(str: string): string {
   return str.replace(/[$]/, '$$$$'); // In replacement to escape $ needs $$
 }
 
-function replaceMessageByPattern(jiraTicket: string, message: string, pattern: string): string {
-  const result = pattern.replace('$J', escapeReplacement(jiraTicket)).replace('$M', escapeReplacement(message));
+function replaceMessageByPattern(youtrackTicket: string, message: string, pattern: string): string {
+  const result = pattern.replace('$J', escapeReplacement(youtrackTicket)).replace('$M', escapeReplacement(message));
   debug(`Replacing message: ${result}`);
   return result;
 }
@@ -117,21 +117,21 @@ function findFirstLineToInsert(lines: string[], config: JPCMConfig): number {
   return firstNotEmptyLine;
 }
 
-function insertJiraTicketIntoMessage(messageInfo: MessageInfo, jiraTicket: string, config: JPCMConfig): string {
+function insertYoutrackTicketIntoMessage(messageInfo: MessageInfo, youtrackTicket: string, config: JPCMConfig): string {
   const message = messageInfo.originalMessage;
   const lines = message.split('\n').map((line) => line.trimLeft());
 
   if (!messageInfo.hasUserText) {
     debug(`User didn't write the message. Allow empty commit is ${String(config.allowEmptyCommitMessage)}`);
 
-    const preparedMessage = replaceMessageByPattern(jiraTicket, '', config.messagePattern);
+    const preparedMessage = replaceMessageByPattern(youtrackTicket, '', config.messagePattern);
 
     if (messageInfo.hasAnyText) {
       const insertedMessage = config.allowEmptyCommitMessage
         ? preparedMessage
         : `# ${preparedMessage}\n` +
-          '# JIRA prepare commit msg > ' +
-          'Please uncomment the line above if you want to insert JIRA ticket into commit message';
+          '# YOUTRACK prepare commit msg > ' +
+          'Please uncomment the line above if you want to insert YOUTRACK ticket into commit message';
 
       lines.unshift(insertedMessage);
     } else {
@@ -156,19 +156,19 @@ function insertJiraTicketIntoMessage(messageInfo: MessageInfo, jiraTicket: strin
         if (match) {
           debug(`Conventional commit message: ${match}`);
 
-          if (!msg.includes(jiraTicket)) {
-            const replacedMessage = replaceMessageByPattern(jiraTicket, msg, config.messagePattern);
+          if (!msg.includes(youtrackTicket)) {
+            const replacedMessage = replaceMessageByPattern(youtrackTicket, msg, config.messagePattern);
             lines[firstLineToInsert] = `${type}${scope || ''}: ${replacedMessage}`;
           }
         }
-      } else if (!line.includes(jiraTicket)) {
-        lines[firstLineToInsert] = replaceMessageByPattern(jiraTicket, line || '', config.messagePattern);
+      } else if (!line.includes(youtrackTicket)) {
+        lines[firstLineToInsert] = replaceMessageByPattern(youtrackTicket, line || '', config.messagePattern);
       }
     }
 
-    // Add jira ticket into the message in case of missing
-    if (lines.every((line) => !line.includes(jiraTicket))) {
-      lines[0] = replaceMessageByPattern(jiraTicket, lines[0] || '', config.messagePattern);
+    // Add youtrack ticket into the message in case of missing
+    if (lines.every((line) => !line.includes(youtrackTicket))) {
+      lines[0] = replaceMessageByPattern(youtrackTicket, lines[0] || '', config.messagePattern);
     }
   }
 
@@ -236,22 +236,22 @@ export async function getBranchName(gitRoot: string): Promise<string> {
   });
 }
 
-export function getJiraTicket(branchName: string, config: JPCMConfig): string {
-  debug('getJiraTicket');
+export function getYoutrackTicket(branchName: string, config: JPCMConfig): string {
+  debug('getYoutrackTicket');
 
-  const jiraIdPattern = new RegExp(config.jiraTicketPattern, 'i');
-  const matched = jiraIdPattern.exec(branchName);
-  const jiraTicket = matched && matched[0];
+  const youtrackIdPattern = new RegExp(config.youtrackTicketPattern, 'i');
+  const matched = youtrackIdPattern.exec(branchName);
+  const youtrackTicket = matched && matched[0];
 
-  if (!jiraTicket) {
-    throw new Error('The JIRA ticket ID not found');
+  if (!youtrackTicket) {
+    throw new Error('The YOUTRACK ticket ID not found');
   }
 
-  return jiraTicket.toUpperCase();
+  return youtrackTicket.toUpperCase();
 }
 
-export function writeJiraTicket(jiraTicket: string, config: JPCMConfig): void {
-  debug('writeJiraTicket');
+export function writeYoutrackTicket(youtrackTicket: string, config: JPCMConfig): void {
+  debug('writeYoutrackTicket');
 
   const messageFilePath = getMsgFilePath(config.gitRoot);
   let message;
@@ -264,13 +264,13 @@ export function writeJiraTicket(jiraTicket: string, config: JPCMConfig): void {
   }
 
   const messageInfo = getMessageInfo(message, config);
-  const messageWithJiraTicket = insertJiraTicketIntoMessage(messageInfo, jiraTicket, config);
+  const messageWithYoutrackTicket = insertYoutrackTicketIntoMessage(messageInfo, youtrackTicket, config);
 
-  debug(messageWithJiraTicket);
+  debug(messageWithYoutrackTicket);
 
   // Write message back to file
   try {
-    fs.writeFileSync(messageFilePath, messageWithJiraTicket, { encoding: 'utf-8' });
+    fs.writeFileSync(messageFilePath, messageWithYoutrackTicket, { encoding: 'utf-8' });
   } catch (ex) {
     throw new Error(`Unable to write the file "${messageFilePath}".`);
   }

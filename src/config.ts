@@ -3,7 +3,7 @@ import { debug, error } from './log';
 
 export type JPCMConfig = {
   messagePattern: string; // Where $J is a ticket number, $M is the message
-  jiraTicketPattern: string; // JIRA ticket RexExp
+  youtrackTicketPattern: string; // YOUTRACK ticket RexExp
   commentChar: string; // Default comment char in the message
   isConventionalCommit: boolean; // Support https://www.conventionalcommits.org
   allowEmptyCommitMessage: boolean;
@@ -12,7 +12,7 @@ export type JPCMConfig = {
 
 const defaultConfig = {
   messagePattern: '[$J] $M',
-  jiraTicketPattern: '([A-Z]+-\\d+)',
+  youtrackTicketPattern: '([A-Z]+-\\d+)',
   commentChar: '#',
   isConventionalCommit: false,
   allowEmptyCommitMessage: false,
@@ -29,14 +29,14 @@ function resolveConfig(configPath: string): string {
 
 export async function loadConfig(configPath?: string): Promise<JPCMConfig> {
   try {
-    const explorer = cosmiconfig('jira-prepare-commit-msg', {
+    const explorer = cosmiconfig('youtrack-prepare-commit-msg', {
       searchPlaces: [
         'package.json',
-        '.jirapreparecommitmsgrc',
-        '.jirapreparecommitmsgrc.json',
-        '.jirapreparecommitmsgrc.yaml',
-        '.jirapreparecommitmsgrc.yml',
-        'jira-prepare-commit-msg.config.js',
+        '.youtrackpreparecommitmsgrc',
+        '.youtrackpreparecommitmsgrc.json',
+        '.youtrackpreparecommitmsgrc.yaml',
+        '.youtrackpreparecommitmsgrc.yml',
+        'youtrack-prepare-commit-msg.config.js',
       ],
     });
 

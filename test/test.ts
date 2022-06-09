@@ -13,17 +13,17 @@ interface CommitMessageToTest {
 
 const singleScopeMessage: CommitMessageToTest = {
   initialMessage: ['chore(deps): Finally solved that problem!'],
-  expectedMessage: 'chore(deps): [JIRA-4321]. Finally solved that problem!',
+  expectedMessage: 'chore(deps): [YOUTRACK-4321]. Finally solved that problem!',
 };
 
 const hyphenatedScopeMessage: CommitMessageToTest = {
   initialMessage: ['feat(new-service): Finally solved that problem!'],
-  expectedMessage: 'feat(new-service): [JIRA-4321]. Finally solved that problem!',
+  expectedMessage: 'feat(new-service): [YOUTRACK-4321]. Finally solved that problem!',
 };
 
 const firstLineWithCommentMessage: CommitMessageToTest = {
   initialMessage: ['# This line is comment', 'chore(deps): Finally solved that problem!'],
-  expectedMessage: 'chore(deps): [JIRA-4321]. Finally solved that problem!',
+  expectedMessage: 'chore(deps): [YOUTRACK-4321]. Finally solved that problem!',
 };
 
 const imitateVerboseCommit: CommitMessageToTest = {
@@ -38,17 +38,17 @@ const imitateVerboseCommit: CommitMessageToTest = {
     '# Changes to be committed:',
     '# ------------------------ >8 ------------------------',
   ],
-  expectedMessage: '[JIRA-4321].',
+  expectedMessage: '[YOUTRACK-4321].',
 };
 
 const conventionalCommitIncludesTicket = {
-  initialMessage: ['feat: [JIRA-4321] Finally solved that problem!'],
-  expectedMessage: 'feat: [JIRA-4321] Finally solved that problem!',
+  initialMessage: ['feat: [YOUTRACK-4321] Finally solved that problem!'],
+  expectedMessage: 'feat: [YOUTRACK-4321] Finally solved that problem!',
 };
 
 const gitRootIsSet = {
-  initialMessage: ['feat: [JIRA-4321] Finally solved that problem!'],
-  expectedMessage: 'feat: [JIRA-4321] Finally solved that problem!',
+  initialMessage: ['feat: [YOUTRACK-4321] Finally solved that problem!'],
+  expectedMessage: 'feat: [YOUTRACK-4321] Finally solved that problem!',
   config: {
     isConventionalCommit: true,
     messagePattern: '[$J]. $M',
@@ -85,7 +85,7 @@ async function testCommitMessage(
   await exec('git add .gitignore', cwd, t);
 
   if (commitMessageToTest.config) {
-    const pathToConfig = path.join(cwd, '.jirapreparecommitmsgrc');
+    const pathToConfig = path.join(cwd, '.youtrackpreparecommitmsgrc');
     fs.writeFileSync(pathToConfig, JSON.stringify(commitMessageToTest.config));
   }
 
@@ -105,7 +105,7 @@ async function testCommitMessage(
   await exec(`git update-ref -d HEAD`, cwd, t);
 }
 
-test('husky2 JIRA ticket ID should be in commit message', async (t: ExecutionContext) => {
+test('husky2 YOUTRACK ticket ID should be in commit message', async (t: ExecutionContext) => {
   await testCommitMessage(singleScopeMessage, 'husky2', t);
   await testCommitMessage(hyphenatedScopeMessage, 'husky2', t);
   await testCommitMessage(firstLineWithCommentMessage, 'husky2', t);
@@ -114,7 +114,7 @@ test('husky2 JIRA ticket ID should be in commit message', async (t: ExecutionCon
   await testCommitMessage(gitRootIsSet, 'husky2', t);
 });
 
-test('husky3 JIRA ticket ID should be in commit message', async (t: ExecutionContext) => {
+test('husky3 YOUTRACK ticket ID should be in commit message', async (t: ExecutionContext) => {
   await testCommitMessage(singleScopeMessage, 'husky3', t);
   await testCommitMessage(hyphenatedScopeMessage, 'husky3', t);
   await testCommitMessage(firstLineWithCommentMessage, 'husky3', t);
@@ -123,7 +123,7 @@ test('husky3 JIRA ticket ID should be in commit message', async (t: ExecutionCon
   await testCommitMessage(gitRootIsSet, 'husky3', t);
 });
 
-test('husky4 JIRA ticket ID should be in commit message', async (t: ExecutionContext) => {
+test('husky4 YOUTRACK ticket ID should be in commit message', async (t: ExecutionContext) => {
   await testCommitMessage(singleScopeMessage, 'husky4', t);
   await testCommitMessage(hyphenatedScopeMessage, 'husky4', t);
   await testCommitMessage(firstLineWithCommentMessage, 'husky4', t);
@@ -132,7 +132,7 @@ test('husky4 JIRA ticket ID should be in commit message', async (t: ExecutionCon
   await testCommitMessage(gitRootIsSet, 'husky4', t);
 });
 
-test('husky5 JIRA ticket ID should be in commit message', async (t: ExecutionContext) => {
+test('husky5 YOUTRACK ticket ID should be in commit message', async (t: ExecutionContext) => {
   await testCommitMessage(singleScopeMessage, 'husky5', t);
   await testCommitMessage(hyphenatedScopeMessage, 'husky5', t);
   await testCommitMessage(firstLineWithCommentMessage, 'husky5', t);
