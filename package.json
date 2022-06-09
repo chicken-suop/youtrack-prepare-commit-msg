@@ -1,8 +1,8 @@
 {
-  "name": "youtrack-prepare-commit-msg",
+  "name": "@chicken-suop/youtrack-prepare-commit-msg",
   "version": "1.6.2",
   "description": "Husky Git hook to add YOUTRACK ticket ID into the commit message",
-  "author": "Dmitry Shilov",
+  "author": "Elliot Schep",
   "bin": "./bin/index.js",
   "keywords": [
     "husky",
